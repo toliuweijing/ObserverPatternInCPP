@@ -11,29 +11,4 @@ Details:
   diamond relations of inheritance). Moveover, according to Wiki, some languages use RTTI to down-cast parameters,
   which should be avoided in C++.
   
-Usage:
-  struct FireArgs{
-    string location;
-    int level;
-  };
-
-  class SecuritySystem {
-  public:
-    Subject<FireArgs> fire_alarm;
-  };
-  
-  class FireDepartment {
-  public:
-    void handle_fire(FireArgs args) {
-      cout << "A level " << args.level << "fire at " << location << endl;
-      cout << "On the way" << endl;
-    }
-  };
-  
-  int main() {
-    SecuritySystem sys;
-    FireDepartment dep;
-    sys.fire_alarm += Observer(&dep, FireDepartment::handle_fire);
-    sys.fire_alarm();
-  }
-  
+Usage: see file tester.cpp
