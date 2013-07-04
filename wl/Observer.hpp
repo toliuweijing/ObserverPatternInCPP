@@ -1,10 +1,11 @@
 #ifndef WL_OBSERVER_HPP
 #define WL_OBSERVER_HPP 
 
+#include<map>  // map
+// currently one observer can only register for the same subject once.
 
 namespace wl {
 namespace details {
-
 
 
 
@@ -12,6 +13,7 @@ template<
     class ArgsT>        // Argument types
     struct BaseWrapper{
     virtual void notify(ArgsT) = 0;
+    virtual bool contains(void*) const = 0;
 };
 
 
@@ -33,7 +35,7 @@ template<
 
 public:
     ObserverWrapper(ObvrT* obvr, Memfun fun) :
-        obvr_(obvr), fun_(fun)
+        obvr_(obvr), fun_(fun), expired_(false)
     {}
 
 
@@ -44,6 +46,10 @@ public:
         (obvr_->*fun_)(args);
     }
 
+    virtual bool contains(void* obj) const {
+        return (void*)obvr_ == obj;
+    }
+
 private:
     ObserverWrapper(const ObserverWrapper&);
     ObserverWrapper& operator=(const ObserverWrapper&);
@@ -51,6 +57,7 @@ private:
 private:
     ObvrT* obvr_;
     Memfun fun_;
+    bool expired_;
 };
 
 

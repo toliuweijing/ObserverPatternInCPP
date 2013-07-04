@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <algorithm>
 #include "Observer.hpp"
 
 
@@ -19,6 +20,12 @@ public:
     }
     void operator+=(ObserverT* observer) {
         obvrs_.push_back(ObserverPtr(observer));
+    }
+    void operator-=(void* observer) {
+        auto it = remove_if(obvrs_.begin(), obvrs_.end(), [&](ObserverPtr& o) {
+            return o->contains(observer);     
+        });
+        obvrs_.erase(it, obvrs_.end());
     }
 private:
     std::vector<ObserverPtr> obvrs_;

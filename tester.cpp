@@ -11,7 +11,8 @@ struct FireEvent {
 class FireDepartment {
 public:
     void response(FireEvent fire_event) {
-        cout << "A level " << fire_event.level << " fire at " << fire_event.location << endl; 
+        cout << "A level " << fire_event.level 
+            << " fire at " << fire_event.location << endl; 
         cout << "On my way" << endl;
     }
 };
@@ -28,5 +29,8 @@ int main(int argc, const char *argv[])
 
     sys.fire_alarm += wl::bind(&dep, &FireDepartment::response);
     sys.fire_alarm(FireEvent{"NYC", 100000});
+
+    sys.fire_alarm -= &dep;
+    sys.fire_alarm(FireEvent{"LAS", 100000});
     return 0;
 }
