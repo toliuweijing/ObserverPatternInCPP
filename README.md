@@ -1,6 +1,7 @@
 ObserverPatternInCPP
 ====================
 Goals:
+  0. user-friendly.
   1. no inheritance needed for observers and subjects.
   2. provide a uniform interface with sufficient flexibility on parameter types.
   3. no RTTI needed for casting parameters.
